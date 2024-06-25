@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+import { motion } from "framer-motion";
 import Item from "./Item";
+
+const items = new Array(8).fill(null); // Create an array with 8 items
 
 const List = () => {
 	return (
@@ -9,14 +12,16 @@ const List = () => {
 					Grocery List
 				</h1>
 				<div className="flex flex-col gap-2 p-2">
-					<Item />
-					<Item />
-					<Item />
-					<Item />
-					<Item />
-					<Item />
-					<Item />
-					<Item />
+					{items.map((_, index) => (
+						<motion.div
+							key={index}
+							initial={{ opacity: 0, y: -25 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ delay: index * 0.1 }}
+						>
+							<Item key={index} index={index} />
+						</motion.div>
+					))}
 				</div>
 			</div>
 		</div>
