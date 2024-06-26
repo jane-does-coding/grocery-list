@@ -30,7 +30,7 @@ const Item = ({ item }) => {
 				<span className="text-neutral-500">{`(${item.amount})`}</span>
 			</h2>
 			<div className="flex gap-2 my-2">
-				{["Store 1", "Store 2", "Store 3"].map((store, index) => (
+				{[`${item.store}`, "Store 2", "Store 3"].map((store, index) => (
 					<motion.span
 						key={index}
 						className="py-1 px-3 bg-blue-200 rounded-full text-xs text-neutral-800"

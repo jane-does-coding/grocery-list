@@ -2,25 +2,26 @@
 import { motion } from "framer-motion";
 import Item from "./Item";
 
-const items = [];
-/* {
-    name: "Apples",
-    amount: "4",
-    store: "Walmart",
-    notes: "",
-},
-{
-    name: "Tea",
-    amount: "24oz",
-    store: "Winco",
-    notes: "Mango tea and Nut tea",
-},
-{
-    name: "Spagetti",
-    amount: "1 pack",
-    store: "Winco",
-    notes: "",
-}, */
+const items = [
+	{
+		name: "Apples",
+		amount: "4",
+		store: "Walmart",
+		notes: "",
+	},
+	{
+		name: "Tea",
+		amount: "24oz",
+		store: "Winco",
+		notes: "Mango tea and Nut tea",
+	},
+	{
+		name: "Spagetti",
+		amount: "1 pack",
+		store: "Winco",
+		notes: "",
+	},
+];
 
 const List = () => {
 	return (
@@ -30,11 +31,13 @@ const List = () => {
 					Grocery List
 				</h1>
 				{items.length < 1 ? (
-					<div>
-						<h1 className="text-neutral-900">No items yet</h1>
+					<div className="flex min-h-[60vh] w-full items-center justify-center">
+						<h1 className="text-neutral-900 text-[1.5rem] jura mx-auto w-fit">
+							No items yet
+						</h1>
 					</div>
 				) : (
-					<div className="flex flex-col gap-2 p-2">
+					<div className="flex flex-col gap-2 p-2 w-full">
 						{items.map((item, index) => (
 							<motion.div
 								key={index}
