@@ -23,13 +23,18 @@ const items = [
 	},
 ];
 
-const List = () => {
+const List = ({ currentUser }) => {
 	return (
 		<div className="min-h-screen bg-indigo-400 flex items-center justify-center">
 			<div className="w-[96vw] bg-white rounded-lg">
-				<h1 className="text-neutral-900 w-fit text-[2rem] jura mx-auto my-4">
+				<h1 className="text-neutral-900 w-fit text-[2.25rem] jura mx-auto mt-4">
 					Grocery List
 				</h1>
+				{currentUser && (
+					<h2 className="jura mx-auto w-fit text-neutral-800 text-[1.25rem] mb-6">
+						Welcome back, {currentUser.username}!
+					</h2>
+				)}
 				{items.length < 1 ? (
 					<div className="flex min-h-[60vh] w-full items-center justify-center">
 						<h1 className="text-neutral-900 text-[1.5rem] jura mx-auto w-fit">

@@ -7,7 +7,7 @@ export default async function Home() {
 	console.log(currentUser);
 	return (
 		<div>
-			<List />
+			<List currentUser={currentUser} />
 		</div>
 	);
 }
