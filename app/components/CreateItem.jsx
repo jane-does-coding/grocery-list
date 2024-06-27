@@ -27,7 +27,7 @@ const CreateItem = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setIsLoading(true);
+		/* setIsLoading(true);
 
 		try {
 			await axios.post("/api/createitem", data);
@@ -44,7 +44,8 @@ const CreateItem = () => {
 			console.log(error);
 			toast.error("Something went wrong");
 			setIsLoading(false);
-		}
+		} */
+		console.log(data);
 	};
 
 	return (
@@ -88,12 +89,6 @@ const CreateItem = () => {
 				>
 					Create Item
 				</button>
-				<p className="text-neutral-500 text-center mb-4 font-light">
-					Already have an account?{" "}
-					<a href="/login" className="text-neutral-800 font-medium">
-						Login
-					</a>
-				</p>
 			</form>
 		</div>
 	);
