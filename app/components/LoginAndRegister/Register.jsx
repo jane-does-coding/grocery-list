@@ -2,13 +2,19 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Input from "../../components/Input";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+	const router = useRouter();
+
 	const [data, setData] = useState({
 		username: "",
 		email: "",
 		password: "",
 	});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -20,20 +26,27 @@ const Register = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setIsLoading(true);
 
 		try {
-			const response = await axios.post("/api/register", {
-				username: data.username,
-				email: data.email,
-				password: data.password,
+			await axios.post("/api/register", data);
+			const callback = await signIn("credentials", {
+				...data,
+				redirect: false,
 			});
 
-			console.log("User registered:", response.data);
+			setIsLoading(false);
 
-			// Optionally, you can redirect or show a success message here
+			if (callback?.ok) {
+				router.push("/");
+				toast.success("Logged in");
+			} else if (callback?.error) {
+				toast.error(callback.error);
+			}
 		} catch (error) {
-			console.error("Registration failed:", error);
-			// Handle error states (show error message, etc.)
+			console.log(error);
+			toast.error("Something went wrong");
+			setIsLoading(false);
 		}
 	};
 
