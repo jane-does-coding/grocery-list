@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Input from "@/app/components/Input";
+import axios from "axios";
+import Input from "../../components/Input";
 
 const Register = () => {
 	const [data, setData] = useState({
@@ -17,9 +18,23 @@ const Register = () => {
 		});
 	};
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log(data);
+
+		try {
+			const response = await axios.post("/api/register", {
+				username: data.username,
+				email: data.email,
+				password: data.password,
+			});
+
+			console.log("User registered:", response.data);
+
+			// Optionally, you can redirect or show a success message here
+		} catch (error) {
+			console.error("Registration failed:", error);
+			// Handle error states (show error message, etc.)
+		}
 	};
 
 	return (
