@@ -6,7 +6,6 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
-
 model User {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   username       String   @unique
@@ -14,7 +13,7 @@ model User {
   hashedPassword String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  items          Item[]   @relation("UserItems")
+  lists          UserList[]
 }
 
 model Item {
@@ -23,6 +22,26 @@ model Item {
   amount   String
   notes    String?
   store    String?
-  userId   String  @db.ObjectId 
-  user     User    @relation("UserItems", fields: [userId], references: [id])
+  listId   String  @db.ObjectId
+  isBought Boolean @default(false)
+  list     List    @relation(fields: [listId], references: [id])
+}
+
+model List {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  items      Item[]
+  users      UserList[]
+}
+
+model UserList {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  listId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  list   List   @relation(fields: [listId], references: [id])
+
+  @@unique([userId, listId])
 }

@@ -7,15 +7,15 @@ export default async function getItems() {
 
 		if (!currentUser) return [];
 
-		const recipes = await prisma.item.findMany({
+		const items = await prisma.item.findMany({
 			where: {
 				userId: currentUser.id,
 			},
 		});
 
-		return recipes;
+		return items;
 	} catch (error) {
-		console.error("Error fetching recipes:", error);
+		console.error("Error fetching items:", error);
 		return { message: "Internal Server Error" };
 	}
 }

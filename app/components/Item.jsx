@@ -37,12 +37,32 @@ const Item = ({ item }) => {
 			});
 
 			router.refresh();
-			/* 			toast.success("Item deleted successfully");
-			 */ if (response.ok) {
-				/* 				onDelete(item.id);
-				 */
+			if (response.ok) {
+				toast.success("Item deleted successfully");
 			} else {
 				toast.error("Failed to delete item");
+			}
+		} catch (error) {
+			console.error(error);
+			toast.error("Something went wrong");
+		}
+	};
+
+	const handleMarkAsDone = async () => {
+		try {
+			const response = await fetch(`/api/items`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ id: item.id, isBought: !item.isBought }),
+			});
+
+			router.refresh();
+			if (response.ok) {
+				toast.success("Item updated successfully");
+			} else {
+				toast.error("Failed to update item");
 			}
 		} catch (error) {
 			console.error(error);
@@ -53,18 +73,36 @@ const Item = ({ item }) => {
 	return (
 		<div
 			ref={ref}
-			className="bg-neutral-100 border-2 border-neutral-200/25 p-2 rounded-md flex items-center justify-between"
+			className={`p-2 rounded-md flex items-center justify-between ${
+				item.isBought
+					? "bg-neutral-300 opacity-45"
+					: "bg-neutral-100 border-2 border-neutral-200/25"
+			}`}
 		>
-			<div className="">
-				<h2 className="text-neutral-900">
+			<div className="px-4">
+				<h2
+					className={`${
+						item.isBought ? "text-neutral-700" : "text-neutral-900"
+					}`}
+				>
 					{item.name}{" "}
-					<span className="text-neutral-500">{`(${item.amount})`}</span>
+					<span
+						className={`${
+							item.isBought ? "text-neutral-700" : "text-neutral-500"
+						}`}
+					>
+						{`(${item.amount})`}
+					</span>
 				</h2>
 				<div className="flex gap-2 my-2">
 					{[`${item.store}`].map((store, index) => (
 						<motion.span
 							key={index}
-							className="py-1 px-3 bg-blue-200 rounded-full text-xs text-neutral-800"
+							className={`py-1 px-3 rounded-full text-xs ${
+								item.isBought
+									? "bg-blue-300 text-neutral-800"
+									: "bg-blue-200 text-neutral-800"
+							}`}
 							custom={index}
 							initial="hidden"
 							animate={inView ? "visible" : "hidden"}
@@ -82,7 +120,10 @@ const Item = ({ item }) => {
 				>
 					<RxCross2 size={28} className="text-red-600" />
 				</button>
-				<button className="p-2 rounded-full bg-green-300/25">
+				<button
+					onClick={handleMarkAsDone}
+					className="p-2 rounded-full bg-green-300/25"
+				>
 					<IoCheckmark size={28} className="text-green-600" />
 				</button>
 			</div>
