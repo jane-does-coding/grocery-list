@@ -25,9 +25,10 @@ const CreateItem = () => {
 		});
 	};
 
+	/*
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		/* setIsLoading(true);
+		 setIsLoading(true);
 
 		try {
 			await axios.post("/api/createitem", data);
@@ -44,8 +45,63 @@ const CreateItem = () => {
 			console.log(error);
 			toast.error("Something went wrong");
 			setIsLoading(false);
-		} */
+		} 
 		console.log(data);
+	}; */
+
+	/* const handleSubmit = async (event) => {
+		event.preventDefault();
+		setIsLoading(true);
+
+		try {
+			const response = await axios.post("/api/createitem", {
+				...data,
+				userId: "user-id-here",
+			});
+			setIsLoading(false);
+
+			if (response.status === 201) {
+				router.push("/");
+				toast.success("Item created successfully");
+			} else {
+				toast.error("Failed to create item");
+			}
+		} catch (error) {
+			console.error(error);
+			toast.error("Something went wrong");
+			setIsLoading(false);
+		}
+	}; */
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		setIsLoading(true);
+
+		try {
+			const response = await fetch("/api/createitem", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					...data,
+					userId: "user-id-here",
+				}),
+			});
+			setIsLoading(false);
+
+			if (response.ok) {
+				router.push("/");
+				toast.success("Item created successfully");
+			} else {
+				const errorData = await response.json();
+				toast.error(errorData.message || "Failed to create item");
+			}
+		} catch (error) {
+			console.error(error);
+			toast.error("Something went wrong");
+			setIsLoading(false);
+		}
 	};
 
 	return (

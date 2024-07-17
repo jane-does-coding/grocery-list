@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import Input from "../Input";
 
 const Login = () => {
@@ -12,7 +13,10 @@ const Login = () => {
 						<Input label={"Email"} />
 						<Input label={"Password"} />
 					</div>
-					<button className="w-full py-3 bg-neutral-800 text-white rounded-md my-4 mt-6">
+					<button
+						onClick={() => signIn("credentials", {})}
+						className="w-full py-3 bg-neutral-800 text-white rounded-md my-4 mt-6"
+					>
 						Login
 					</button>
 					<p className="text-neutral-500 text-center mb-4 font-light">
