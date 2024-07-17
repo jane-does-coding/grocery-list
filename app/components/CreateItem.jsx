@@ -92,6 +92,7 @@ const CreateItem = () => {
 
 			if (response.ok) {
 				router.push("/");
+				router.refresh();
 				toast.success("Item created successfully");
 			} else {
 				const errorData = await response.json();

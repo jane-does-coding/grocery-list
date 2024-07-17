@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Item from "./Item";
-
+/* 
 const items = [
 	{
 		name: "Apples",
@@ -22,8 +22,8 @@ const items = [
 		notes: "",
 	},
 ];
-
-const List = ({ currentUser }) => {
+ */
+const List = ({ currentUser, items }) => {
 	return (
 		<div className="min-h-screen bg-indigo-400 flex items-center justify-center">
 			<div className="w-[96vw] bg-white rounded-lg">

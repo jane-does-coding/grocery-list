@@ -9,7 +9,7 @@ export default async function Home() {
 
 	return (
 		<div>
-			<List currentUser={currentUser} />
+			<List currentUser={currentUser} items={items} />
 		</div>
 	);
 }
