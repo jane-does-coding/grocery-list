@@ -78,7 +78,7 @@ const CreateItem = () => {
 		setIsLoading(true);
 
 		try {
-			const response = await fetch("/api/createitem", {
+			const response = await fetch("/api/items", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

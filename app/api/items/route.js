@@ -5,7 +5,6 @@ import getCurrentUser from "../../actions/getCurrentUser";
 export async function POST(req) {
 	const body = await req.json();
 	const { product, amount, store, notes, userId } = body;
-	y;
 	const currentUser = await getCurrentUser();
 
 	try {
